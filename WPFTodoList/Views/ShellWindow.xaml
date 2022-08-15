@@ -32,23 +32,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Background="LightGray">
-                <ListView Background="Transparent"
-                          BorderThickness="0, 0, 1, 0"
-                          SelectedIndex="0">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{ x:Type ListViewItem }">
-                            <Style.Setters>
-                                <Setter Property="Padding" 
-                                        Value="4" />
-                                <Setter Property="Cursor"
-                                        Value="Hand" />
-                            </Style.Setters>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListViewItem>Home</ListViewItem>
-                    <ListViewItem>Todos</ListViewItem>
-                    <ListViewItem>About</ListViewItem>
-                </ListView>
+                <ContentControl prism:RegionManager.RegionName="NavigationRegion" />
             </Grid>
 
             <Grid Grid.Column="1">

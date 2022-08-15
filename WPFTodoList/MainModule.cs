@@ -12,6 +12,7 @@ namespace WPFTodoList
             IRegionManager regionManager = containerProvider.Resolve<IRegionManager>();
 
             regionManager.RegisterViewWithRegion("ContentRegion", typeof(HomeView));
+            regionManager.RegisterViewWithRegion("NavigationRegion", typeof(Navigation));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

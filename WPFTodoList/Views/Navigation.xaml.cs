@@ -3,11 +3,11 @@
 namespace WPFTodoList.Views
 {
     /// <summary>
-    /// Interaction logic for TodosView.xaml
+    /// Interaction logic for Navigation.xaml
     /// </summary>
-    public partial class TodosView : UserControl
+    public partial class Navigation : UserControl
     {
-        public TodosView()
+        public Navigation()
         {
             InitializeComponent();
         }
