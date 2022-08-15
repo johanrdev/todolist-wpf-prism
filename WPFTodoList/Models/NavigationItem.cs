@@ -5,6 +5,7 @@ namespace WPFTodoList.Models
     public class NavigationItem : BindableBase
     {
         private string _displayName;
+        private string _uri;
 
         public string DisplayName
         {
@@ -12,8 +13,6 @@ namespace WPFTodoList.Models
             set => SetProperty(ref _displayName, value);
         }
 
-
-        private string _uri;
         public string Uri
         {
             get => _uri;

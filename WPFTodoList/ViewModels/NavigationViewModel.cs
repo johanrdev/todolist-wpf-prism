@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System.Collections.ObjectModel;
 using System.Linq;
+using WPFTodoList.Models;
 
 namespace WPFTodoList.ViewModels
 {
