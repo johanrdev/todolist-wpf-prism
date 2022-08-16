@@ -15,7 +15,8 @@
 
         <TextBox Margin="2"
                  Padding="4"
-                 Text="{ Binding Path=SearchString, UpdateSourceTrigger=PropertyChanged }">
+                 Text="{ Binding Path=SearchString, 
+                                 UpdateSourceTrigger=PropertyChanged }">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="KeyUp">
                     <i:InvokeCommandAction Command="{ Binding FilterCommand }" />

@@ -47,14 +47,15 @@ namespace WPFTodoList.ViewModels
         {
             Todos = new ObservableCollection<TodoItem>
             {
-                new TodoItem { Title = "My First Todo" },
-                new TodoItem { Title = "My Second Todo" },
-                new TodoItem { Title = "My Third Todo", IsCompleted = true }
+                new TodoItem { Title = "My First Todo", IsCompleted = false },
+                new TodoItem { Title = "My Second Todo", IsCompleted = false },
+                new TodoItem { Title = "My Third Todo", IsCompleted = false }
             };
 
             SelectedTodoItem = Todos.FirstOrDefault();
 
             _viewSource = (ListCollectionView)CollectionViewSource.GetDefaultView(Todos);
+            _viewSource.SortDescriptions.Add(new SortDescription("IsCompleted", ListSortDirection.Ascending));
             _viewSource.Filter = item =>
             {
                 if (item is TodoItem)
