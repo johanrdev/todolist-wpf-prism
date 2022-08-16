@@ -81,6 +81,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\ShellWindowViewModel.cs" />
+    <Compile Include="Models\TodoItem.cs" />
     <Compile Include="ViewModels\TodosViewModel.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
