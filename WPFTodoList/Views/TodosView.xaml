@@ -27,11 +27,27 @@
         <ListView Grid.Row="1" 
                   Background="Transparent"
                   BorderThickness="0"
+                  AlternationCount="2"
                   ItemsSource="{ Binding Path=ViewSource }"
                   SelectedItem="{ Binding Path=SelectedTodoItem }">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{ x:Type ListViewItem }">
+                    <Style.Setters>
+                        <Setter Property="Cursor" Value="Hand" />
+                    </Style.Setters>
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="Transparent" />
+                        </Trigger>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#F4F4F4" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Margin="2">
+                    <DockPanel Margin="4">
                         <CheckBox DockPanel.Dock="Left" 
                                   IsChecked="{ Binding Path=IsCompleted }"
                                   Margin="0, 0, 4, 0">

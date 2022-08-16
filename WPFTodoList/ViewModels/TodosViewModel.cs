@@ -49,7 +49,9 @@ namespace WPFTodoList.ViewModels
             {
                 new TodoItem { Title = "My First Todo", IsCompleted = false },
                 new TodoItem { Title = "My Second Todo", IsCompleted = false },
-                new TodoItem { Title = "My Third Todo", IsCompleted = false }
+                new TodoItem { Title = "My Third Todo", IsCompleted = true },
+                new TodoItem { Title = "My Fourth Todo", IsCompleted = false },
+                new TodoItem { Title = "My Fifth Todo", IsCompleted = false }
             };
 
             SelectedTodoItem = Todos.FirstOrDefault();
