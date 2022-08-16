@@ -2,16 +2,26 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Data;
 using WPFTodoList.Models;
 
 namespace WPFTodoList.ViewModels
 {
     public class TodosViewModel : BindableBase
     {
+        private ListCollectionView _viewSource;
         private TodoItem _selectedTodoItem;
+        private string _searchString;
         private DelegateCommand<object> _toggleCommand;
+        private DelegateCommand _filterCommand;
+
+        public ListCollectionView ViewSource
+        {
+            get => _viewSource;
+        }
 
         public TodoItem SelectedTodoItem
         {
@@ -19,8 +29,17 @@ namespace WPFTodoList.ViewModels
             set => SetProperty(ref _selectedTodoItem, value);
         }
 
+        public string SearchString
+        {
+            get => _searchString;
+            set => SetProperty(ref _searchString, value);
+        }
+
         public DelegateCommand<object> ToggleCommand =>
             _toggleCommand ?? new DelegateCommand<object>(ExecuteToggleCommand);
+
+        public DelegateCommand FilterCommand =>
+            _filterCommand ?? new DelegateCommand(ExecuteFilterCommand);
 
         public ObservableCollection<TodoItem> Todos { get; set; }
 
@@ -34,6 +53,22 @@ namespace WPFTodoList.ViewModels
             };
 
             SelectedTodoItem = Todos.FirstOrDefault();
+
+            _viewSource = (ListCollectionView)CollectionViewSource.GetDefaultView(Todos);
+            _viewSource.Filter = item =>
+            {
+                if (item is TodoItem)
+                {
+                    TodoItem todoItem = item as TodoItem;
+
+                    return string.IsNullOrEmpty(SearchString) || string.IsNullOrWhiteSpace(SearchString) ?
+                        true : todoItem.Title.ToLower().Contains(SearchString.ToLower());
+                }
+                else
+                {
+                    return true;
+                }
+            };
         }
 
         private void ExecuteToggleCommand(object param)
@@ -42,10 +77,15 @@ namespace WPFTodoList.ViewModels
             {
                 TodoItem todoItem = (TodoItem)param;
 
-                Debug.WriteLine(todoItem.IsCompleted);
-
                 SelectedTodoItem = todoItem;
+
+                ViewSource.Refresh();
             }
+        }
+
+        private void ExecuteFilterCommand()
+        {
+            ViewSource.Refresh();
         }
     }
 }

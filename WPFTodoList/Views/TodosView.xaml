@@ -8,9 +8,25 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
     <Grid>
-        <ListView Background="Transparent"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBox Margin="2"
+                 Padding="4"
+                 Text="{ Binding Path=SearchString, UpdateSourceTrigger=PropertyChanged }">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="KeyUp">
+                    <i:InvokeCommandAction Command="{ Binding FilterCommand }" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+        <ListView Grid.Row="1" 
+                  Background="Transparent"
                   BorderThickness="0"
-                  ItemsSource="{ Binding Path=Todos }"
+                  ItemsSource="{ Binding Path=ViewSource }"
                   SelectedItem="{ Binding Path=SelectedTodoItem }">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -20,11 +36,13 @@
                                   Margin="0, 0, 4, 0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
+                                    <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, 
+                                                                              RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
                                                            CommandParameter="{ Binding }" />
                                 </i:EventTrigger>
                                 <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
+                                    <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, 
+                                                                              RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
                                                            CommandParameter="{ Binding }" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>

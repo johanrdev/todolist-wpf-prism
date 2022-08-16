@@ -6,6 +6,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Home" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Text="Home" 
+                   FontSize="18" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" />
     </Grid>
 </UserControl>
