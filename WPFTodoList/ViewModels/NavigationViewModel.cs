@@ -20,7 +20,7 @@ namespace WPFTodoList.ViewModels
         }
 
         public DelegateCommand<object> NavigateCommand => 
-            _navigateCommand ?? (_navigateCommand = new DelegateCommand<object>(ExecuteNavigateCommand));
+            _navigateCommand ?? new DelegateCommand<object>(ExecuteNavigateCommand);
 
         public ObservableCollection<NavigationItem> NavigationItems { get; set; }
 
