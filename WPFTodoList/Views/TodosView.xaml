@@ -37,6 +37,7 @@
                   Background="Transparent"
                   BorderThickness="0"
                   AlternationCount="2"
+                  SelectionMode="Single"
                   ItemsSource="{ Binding Path=ViewSource }"
                   SelectedItem="{ Binding Path=SelectedTodoItem }">
             <ListView.ItemContainerStyle>
@@ -75,14 +76,24 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </CheckBox>
-                        
-                        <Button DockPanel.Dock="Right"
+
+                        <StackPanel DockPanel.Dock="Right"
+                                    Orientation="Horizontal">
+                            <Button 
                                 Content="Edit"
                                 Padding="2"
                                 MinWidth="50"
                                 Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
                                                    RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
                                 CommandParameter="{ Binding }" />
+                            <Button 
+                                Content="Delete"
+                                Padding="2"
+                                MinWidth="50"
+                                Command="{ Binding Path=DataContext.OpenConfirmDialogCommand, 
+                                                   RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
+                                CommandParameter="{ Binding }" />
+                        </StackPanel>
 
                         <TextBlock Text="{ Binding Path=Title }" 
                                    VerticalAlignment="Center" />

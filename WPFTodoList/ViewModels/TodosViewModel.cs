@@ -19,6 +19,7 @@ namespace WPFTodoList.ViewModels
         private DelegateCommand _filterCommand;
         private DelegateCommand _openAddTodoDialogCommand;
         private DelegateCommand<object> _openEditTodoDialogCommand;
+        private DelegateCommand<object> _openConfirmDialogCommand;
 
         public ListCollectionView ViewSource
         {
@@ -48,6 +49,9 @@ namespace WPFTodoList.ViewModels
 
         public DelegateCommand<object> OpenEditTodoDialogCommand =>
             _openEditTodoDialogCommand ?? new DelegateCommand<object>(ExecuteOpenEditTodoDialogCommand);
+
+        public DelegateCommand<object> OpenConfirmDialogCommand =>
+            _openConfirmDialogCommand ?? new DelegateCommand<object>(ExecuteOpenConfirmDialogCommand);
 
         public ObservableCollection<TodoItem> Todos { get; set; }
 
@@ -147,6 +151,26 @@ namespace WPFTodoList.ViewModels
                         TodoItem existingTodoItem = Todos.Where(t => t.Id == updatedTodoItem.Id).FirstOrDefault();
 
                         existingTodoItem.Title = updatedTodoItem.Title;
+                    }
+                });
+            }
+        }
+
+        private void ExecuteOpenConfirmDialogCommand(object param)
+        {
+            if (param is TodoItem)
+            {
+                SelectedTodoItem = (TodoItem)param;
+
+                DialogParameters dialogParameters = new DialogParameters();
+
+                dialogParameters.Add("Message", "Are you sure you wish to delete " + SelectedTodoItem.Title + "?");
+
+                _dialogService.ShowDialog("ConfirmDialog", dialogParameters, result =>
+                {
+                    if (result.Result == ButtonResult.OK)
+                    {
+                        Todos.Remove(SelectedTodoItem);
                     }
                 });
             }
