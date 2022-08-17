@@ -64,22 +64,31 @@ namespace WPFTodoList.ViewModels
 
             SelectedTodoItem = Todos.FirstOrDefault();
 
-            _viewSource = (ListCollectionView)CollectionViewSource.GetDefaultView(Todos);
-            _viewSource.SortDescriptions.Add(new SortDescription("IsCompleted", ListSortDirection.Ascending));
-            _viewSource.Filter = item =>
-            {
-                if (item is TodoItem)
-                {
-                    TodoItem todoItem = item as TodoItem;
+            InitViewSource();
+        }
 
-                    return string.IsNullOrEmpty(SearchString) || string.IsNullOrWhiteSpace(SearchString) ?
-                        true : todoItem.Title.ToLower().Contains(SearchString.ToLower());
-                }
-                else
-                {
-                    return true;
-                }
-            };
+        private void InitViewSource()
+        {
+            _viewSource = (ListCollectionView)CollectionViewSource.GetDefaultView(Todos);
+            _viewSource.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
+            _viewSource.IsLiveSorting = true;
+            _viewSource.LiveSortingProperties.Add("Title");
+            _viewSource.Filter = ViewSourceFilter;
+        }
+
+        private bool ViewSourceFilter(object item)
+        {
+            if (item is TodoItem)
+            {
+                TodoItem todoItem = item as TodoItem;
+
+                return string.IsNullOrEmpty(SearchString) || string.IsNullOrWhiteSpace(SearchString) ?
+                    !todoItem.IsCompleted : !todoItem.IsCompleted && todoItem.Title.ToLower().Contains(SearchString.ToLower());
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void ExecuteToggleCommand(object param)
@@ -103,7 +112,14 @@ namespace WPFTodoList.ViewModels
         {
             _dialogService.ShowDialog("AddTodoDialog", null, result =>
             {
+                if (result.Result == ButtonResult.OK)
+                {
+                    TodoItem newTodo = result.Parameters.GetValue<TodoItem>("NewTodo");
 
+                    Todos.Add(newTodo);
+
+                    ViewSource.Refresh();
+                }
             });
         }
     }
