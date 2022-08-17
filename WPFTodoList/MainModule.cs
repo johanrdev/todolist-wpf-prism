@@ -23,6 +23,7 @@ namespace WPFTodoList
             containerRegistry.RegisterForNavigation<AboutView>();
 
             containerRegistry.RegisterDialog<AddTodoDialog>("AddTodoDialog");
+            containerRegistry.RegisterDialog<EditTodoDialog>("EditTodoDialog");
         }
     }
 }

@@ -43,10 +43,10 @@ namespace WPFTodoList.Dialogs.ViewModels
 
         private void ExecuteAddCommand()
         {
-            DialogParameters param = new DialogParameters();
-            param.Add("NewTodo", NewTodo);
+            DialogParameters dialogParameters = new DialogParameters();
+            dialogParameters.Add("NewTodo", NewTodo);
 
-            DialogResult result = new DialogResult(ButtonResult.OK, param);
+            DialogResult result = new DialogResult(ButtonResult.OK, dialogParameters);
             RequestClose?.Invoke(result);
         }
     }

@@ -20,6 +20,7 @@ namespace WPFTodoList.ViewModels
         private DelegateCommand<object> _toggleCommand;
         private DelegateCommand _filterCommand;
         private DelegateCommand _openAddTodoDialogCommand;
+        private DelegateCommand<object> _openEditTodoDialogCommand;
 
         public ListCollectionView ViewSource
         {
@@ -47,6 +48,9 @@ namespace WPFTodoList.ViewModels
         public DelegateCommand OpenAddTodoDialogCommand =>
             _openAddTodoDialogCommand ?? new DelegateCommand(ExecuteOpenAddTodoDialogCommand);
 
+        public DelegateCommand<object> OpenEditTodoDialogCommand =>
+            _openEditTodoDialogCommand ?? new DelegateCommand<object>(ExecuteOpenEditTodoDialogCommand);
+
         public ObservableCollection<TodoItem> Todos { get; set; }
 
         public TodosViewModel(IDialogService dialogService)
@@ -55,11 +59,11 @@ namespace WPFTodoList.ViewModels
 
             Todos = new ObservableCollection<TodoItem>
             {
-                new TodoItem { Title = "My First Todo", IsCompleted = false },
-                new TodoItem { Title = "My Second Todo", IsCompleted = false },
-                new TodoItem { Title = "My Third Todo", IsCompleted = true },
-                new TodoItem { Title = "My Fourth Todo", IsCompleted = false },
-                new TodoItem { Title = "My Fifth Todo", IsCompleted = false }
+                new TodoItem { Id = 1, Title = "My First Todo", IsCompleted = false },
+                new TodoItem { Id = 2, Title = "My Second Todo", IsCompleted = false },
+                new TodoItem { Id = 3, Title = "My Third Todo", IsCompleted = true },
+                new TodoItem { Id = 4, Title = "My Fourth Todo", IsCompleted = false },
+                new TodoItem { Id = 5, Title = "My Fifth Todo", IsCompleted = false }
             };
 
             SelectedTodoItem = Todos.FirstOrDefault();
@@ -121,6 +125,30 @@ namespace WPFTodoList.ViewModels
                     ViewSource.Refresh();
                 }
             });
+        }
+
+        private void ExecuteOpenEditTodoDialogCommand(object param)
+        {
+            if (param is TodoItem)
+            {
+                TodoItem todoItem = (TodoItem)param;
+
+                SelectedTodoItem = todoItem;
+
+                DialogParameters dialogParameters = new DialogParameters();
+                dialogParameters.Add("Todo", todoItem);
+
+                _dialogService.ShowDialog("EditTodoDialog", dialogParameters, result =>
+                {
+                    if (result.Result == ButtonResult.OK)
+                    {
+                        TodoItem updatedTodoItem = result.Parameters.GetValue<TodoItem>("EditedTodo");
+                        TodoItem existingTodoItem = Todos.Where(t => t.Id == updatedTodoItem.Id).FirstOrDefault();
+
+                        existingTodoItem.Title = updatedTodoItem.Title;
+                    }
+                });
+            }
         }
     }
 }

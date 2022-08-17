@@ -42,6 +42,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="{ x:Type ListViewItem }">
                     <Style.Setters>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="Cursor" Value="Hand" />
                     </Style.Setters>
                     <Style.Triggers>
@@ -59,7 +60,8 @@
                     <DockPanel Margin="4">
                         <CheckBox DockPanel.Dock="Left" 
                                   IsChecked="{ Binding Path=IsCompleted }"
-                                  Margin="0, 0, 4, 0">
+                                  Margin="0, 0, 4, 0"
+                                  VerticalAlignment="Center">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Checked">
                                     <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, 
@@ -73,8 +75,17 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </CheckBox>
-                        <TextBlock DockPanel.Dock="Left" 
-                                   Text="{ Binding Path=Title }" />
+                        
+                        <Button DockPanel.Dock="Right"
+                                Content="Edit"
+                                Padding="2"
+                                MinWidth="50"
+                                Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
+                                                   RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
+                                CommandParameter="{ Binding }" />
+
+                        <TextBlock Text="{ Binding Path=Title }" 
+                                   VerticalAlignment="Center" />
                     </DockPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
