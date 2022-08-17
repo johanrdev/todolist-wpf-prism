@@ -76,9 +76,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Dialogs\ViewModels\AddTodoDialogViewModel.cs" />
+    <Compile Include="Dialogs\ViewModels\ConfirmDialogViewModel.cs" />
     <Compile Include="Dialogs\ViewModels\EditTodoDialogViewModel.cs" />
     <Compile Include="Dialogs\Views\AddTodoDialog.xaml.cs">
       <DependentUpon>AddTodoDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Views\ConfirmDialog.xaml.cs">
+      <DependentUpon>ConfirmDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\Views\EditTodoDialog.xaml.cs">
       <DependentUpon>EditTodoDialog.xaml</DependentUpon>
@@ -136,6 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Dialogs\Views\AddTodoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\Views\ConfirmDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

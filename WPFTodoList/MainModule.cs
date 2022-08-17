@@ -24,6 +24,7 @@ namespace WPFTodoList
 
             containerRegistry.RegisterDialog<AddTodoDialog>("AddTodoDialog");
             containerRegistry.RegisterDialog<EditTodoDialog>("EditTodoDialog");
+            containerRegistry.RegisterDialog<ConfirmDialog>("ConfirmDialog");
         }
     }
 }
