@@ -10,10 +10,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBox Margin="2"
+        <StackPanel Orientation="Horizontal"
+                    Margin="2, 2, 2, 10">
+            <Button Content="Add New" 
+                    Padding="4"
+                    Command="{ Binding Path=OpenAddTodoDialogCommand }" />
+        </StackPanel>
+
+        <TextBox Grid.Row="1"
+                 Margin="2"
                  Padding="4"
                  Text="{ Binding Path=SearchString, 
                                  UpdateSourceTrigger=PropertyChanged }">
@@ -24,7 +33,7 @@
             </i:Interaction.Triggers>
         </TextBox>
 
-        <ListView Grid.Row="1" 
+        <ListView Grid.Row="2" 
                   Background="Transparent"
                   BorderThickness="0"
                   AlternationCount="2"

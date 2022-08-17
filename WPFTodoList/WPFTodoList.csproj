@@ -75,6 +75,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Dialogs\ViewModels\AddTodoDialogViewModel.cs" />
+    <Compile Include="Dialogs\Views\AddTodoDialog.xaml.cs">
+      <DependentUpon>AddTodoDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainModule.cs" />
     <Compile Include="Models\NavigationItem.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
@@ -127,6 +131,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Dialogs\Views\AddTodoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

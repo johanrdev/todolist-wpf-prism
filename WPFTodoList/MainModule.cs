@@ -1,6 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using WPFTodoList.Dialogs.Views;
 using WPFTodoList.Views;
 
 namespace WPFTodoList
@@ -20,6 +21,8 @@ namespace WPFTodoList
             containerRegistry.RegisterForNavigation<HomeView>();
             containerRegistry.RegisterForNavigation<TodosView>();
             containerRegistry.RegisterForNavigation<AboutView>();
+
+            containerRegistry.RegisterDialog<AddTodoDialog>("AddTodoDialog");
         }
     }
 }

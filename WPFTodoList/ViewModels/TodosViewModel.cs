@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,11 +13,13 @@ namespace WPFTodoList.ViewModels
 {
     public class TodosViewModel : BindableBase
     {
+        private IDialogService _dialogService;
         private ListCollectionView _viewSource;
         private TodoItem _selectedTodoItem;
         private string _searchString;
         private DelegateCommand<object> _toggleCommand;
         private DelegateCommand _filterCommand;
+        private DelegateCommand _openAddTodoDialogCommand;
 
         public ListCollectionView ViewSource
         {
@@ -41,10 +44,15 @@ namespace WPFTodoList.ViewModels
         public DelegateCommand FilterCommand =>
             _filterCommand ?? new DelegateCommand(ExecuteFilterCommand);
 
+        public DelegateCommand OpenAddTodoDialogCommand =>
+            _openAddTodoDialogCommand ?? new DelegateCommand(ExecuteOpenAddTodoDialogCommand);
+
         public ObservableCollection<TodoItem> Todos { get; set; }
 
-        public TodosViewModel()
+        public TodosViewModel(IDialogService dialogService)
         {
+            _dialogService = dialogService;
+
             Todos = new ObservableCollection<TodoItem>
             {
                 new TodoItem { Title = "My First Todo", IsCompleted = false },
@@ -89,6 +97,14 @@ namespace WPFTodoList.ViewModels
         private void ExecuteFilterCommand()
         {
             ViewSource.Refresh();
+        }
+
+        private void ExecuteOpenAddTodoDialogCommand()
+        {
+            _dialogService.ShowDialog("AddTodoDialog", null, result =>
+            {
+
+            });
         }
     }
 }
