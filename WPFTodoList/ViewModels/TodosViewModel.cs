@@ -1,10 +1,8 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Data;
 using WPFTodoList.Models;
@@ -115,6 +113,7 @@ namespace WPFTodoList.ViewModels
         private void ExecuteOpenAddTodoDialogCommand()
         {
             DialogParameters dialogParameters = new DialogParameters();
+
             dialogParameters.Add("NewId", Todos.Count + 1);
 
             _dialogService.ShowDialog("AddTodoDialog", dialogParameters, result =>
@@ -134,11 +133,10 @@ namespace WPFTodoList.ViewModels
         {
             if (param is TodoItem)
             {
-                TodoItem todoItem = (TodoItem)param;
-
-                SelectedTodoItem = todoItem;
+                SelectedTodoItem = (TodoItem)param;
 
                 DialogParameters dialogParameters = new DialogParameters();
+
                 dialogParameters.Add("Todo", SelectedTodoItem);
 
                 _dialogService.ShowDialog("EditTodoDialog", dialogParameters, result =>
