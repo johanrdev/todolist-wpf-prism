@@ -114,7 +114,10 @@ namespace WPFTodoList.ViewModels
 
         private void ExecuteOpenAddTodoDialogCommand()
         {
-            _dialogService.ShowDialog("AddTodoDialog", null, result =>
+            DialogParameters dialogParameters = new DialogParameters();
+            dialogParameters.Add("NewId", Todos.Count + 1);
+
+            _dialogService.ShowDialog("AddTodoDialog", dialogParameters, result =>
             {
                 if (result.Result == ButtonResult.OK)
                 {
@@ -136,7 +139,7 @@ namespace WPFTodoList.ViewModels
                 SelectedTodoItem = todoItem;
 
                 DialogParameters dialogParameters = new DialogParameters();
-                dialogParameters.Add("Todo", todoItem);
+                dialogParameters.Add("Todo", SelectedTodoItem);
 
                 _dialogService.ShowDialog("EditTodoDialog", dialogParameters, result =>
                 {

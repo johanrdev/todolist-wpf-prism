@@ -39,6 +39,7 @@ namespace WPFTodoList.Dialogs.ViewModels
         public void OnDialogOpened(IDialogParameters parameters)
         {
             NewTodo = new TodoItem();
+            NewTodo.Id = parameters.GetValue<int>("NewId");
         }
 
         private void ExecuteAddCommand()
