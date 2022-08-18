@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace WPFTodoList.ViewModels
         private DelegateCommand _openAddTodoDialogCommand;
         private DelegateCommand<object> _openEditTodoDialogCommand;
         private DelegateCommand<object> _openConfirmDialogCommand;
+        private DelegateCommand _restoreCommand;
 
         public ListCollectionView ViewSource
         {
@@ -53,6 +55,9 @@ namespace WPFTodoList.ViewModels
         public DelegateCommand<object> OpenConfirmDialogCommand =>
             _openConfirmDialogCommand ?? new DelegateCommand<object>(ExecuteOpenConfirmDialogCommand);
 
+        public DelegateCommand RestoreCommand =>
+            _restoreCommand ?? new DelegateCommand(ExecuteRestoreCommand);
+
         public ObservableCollection<TodoItem> Todos { get; set; }
 
         public TodosViewModel(IDialogService dialogService)
@@ -63,7 +68,7 @@ namespace WPFTodoList.ViewModels
             {
                 new TodoItem { Id = 1, Title = "My First Todo", IsCompleted = false },
                 new TodoItem { Id = 2, Title = "My Second Todo", IsCompleted = false },
-                new TodoItem { Id = 3, Title = "My Third Todo", IsCompleted = true },
+                new TodoItem { Id = 3, Title = "My Third Todo", IsCompleted = false },
                 new TodoItem { Id = 4, Title = "My Fourth Todo", IsCompleted = false },
                 new TodoItem { Id = 5, Title = "My Fifth Todo", IsCompleted = false }
             };
@@ -176,6 +181,16 @@ namespace WPFTodoList.ViewModels
                     }
                 });
             }
+        }
+
+        private void ExecuteRestoreCommand()
+        {
+            foreach (TodoItem todoItem in Todos)
+            {
+                todoItem.IsCompleted = false;
+            }
+
+            ViewSource.Refresh();
         }
     }
 }

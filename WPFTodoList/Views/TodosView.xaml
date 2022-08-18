@@ -19,6 +19,19 @@
                 BorderBrush="#FFCCCCCC">
             <DockPanel LastChildFill="False"
                        Margin="2">
+                <!--<Button DockPanel.Dock="Right"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Width="25"
+                        Height="25"
+                        Cursor="Hand"
+                        Command="{ Binding Path=RestoreCommand }">
+                    <Button.Content>
+                        <fa:ImageAwesome Icon="RotateLeft"
+                                         Width="15"
+                                         Foreground="DodgerBlue" />
+                    </Button.Content>
+                </Button>-->
                 <Button DockPanel.Dock="Right"
                         Background="Transparent"
                         BorderThickness="0"
@@ -75,7 +88,8 @@
                   AlternationCount="2"
                   SelectionMode="Single"
                   ItemsSource="{ Binding Path=ViewSource }"
-                  SelectedItem="{ Binding Path=SelectedTodoItem }">
+                  SelectedItem="{ Binding Path=SelectedTodoItem }"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{ x:Type ListViewItem }">
                     <Style.Setters>
@@ -96,22 +110,24 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock FontWeight="Bold"
-                                       FontSize="16"
-                                       Padding="4">
-                                <TextBlock.Style>
-                                    <Style TargetType="{ x:Type TextBlock }">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{ Binding Path=Name }" Value="False">
-                                                <Setter Property="Text" Value="Todos" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{ Binding Path=Name }" Value="True">
-                                                <Setter Property="Text" Value="Finished" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontWeight="Bold"
+                                           FontSize="16"
+                                           Padding="2, 4">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{ x:Type TextBlock }">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{ Binding Path=Name }" Value="False">
+                                                    <Setter Property="Text" Value="Todos" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{ Binding Path=Name }" Value="True">
+                                                    <Setter Property="Text" Value="Finished" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
@@ -170,6 +186,7 @@
                         </StackPanel>
 
                         <TextBlock Text="{ Binding Path=Title }" 
+                                   TextWrapping="WrapWithOverflow"
                                    VerticalAlignment="Center" />
                     </DockPanel>
                 </DataTemplate>
