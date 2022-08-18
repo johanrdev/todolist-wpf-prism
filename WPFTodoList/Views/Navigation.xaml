@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <ListView Background="Transparent"
                   BorderThickness="0, 0, 1, 0"
                   ItemsSource="{ Binding Path=NavigationItems }"
-                  DisplayMemberPath="DisplayName"
                   SelectedItem="{ Binding Path=SelectedNavigationItem }">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
@@ -22,13 +22,28 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="{ x:Type ListViewItem }">
                     <Style.Setters>
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
                         <Setter Property="Padding" 
-                                Value="4" />
+                                Value="2" />
                         <Setter Property="Cursor"
                                 Value="Hand" />
                     </Style.Setters>
                 </Style>
             </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel LastChildFill="True">
+                        <fa:ImageAwesome DockPanel.Dock="Left"
+                                         Icon="{ Binding Path=Icon }"
+                                         Width="20"
+                                         Height="20"
+                                         Foreground="DodgerBlue" />
+                        <Label DockPanel.Dock="Left" 
+                               Content="{ Binding Path=DisplayName }" />
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </UserControl>

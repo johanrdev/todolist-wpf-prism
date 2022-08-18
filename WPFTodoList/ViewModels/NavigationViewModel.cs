@@ -30,9 +30,9 @@ namespace WPFTodoList.ViewModels
 
             NavigationItems = new ObservableCollection<NavigationItem>
             {
-                new NavigationItem { DisplayName = "Home", Uri = "HomeView" },
-                new NavigationItem { DisplayName = "Todos", Uri = "TodosView" },
-                new NavigationItem { DisplayName = "About", Uri = "AboutView" }
+                new NavigationItem { DisplayName = "Home", Icon = "Home", Uri = "HomeView" },
+                new NavigationItem { DisplayName = "Todos", Icon = "List", Uri = "TodosView" },
+                new NavigationItem { DisplayName = "About", Icon = "InfoCircle", Uri = "AboutView" }
             };
 
             SelectedNavigationItem = NavigationItems.FirstOrDefault();

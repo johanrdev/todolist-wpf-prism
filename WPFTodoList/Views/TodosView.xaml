@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -14,12 +15,25 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal"
-                    Margin="2, 2, 2, 10">
-            <Button Content="Add New" 
-                    Padding="4"
-                    Command="{ Binding Path=OpenAddTodoDialogCommand }" />
-        </StackPanel>
+        <Border BorderThickness="0, 0, 0, 1"
+                BorderBrush="#FFCCCCCC">
+            <DockPanel LastChildFill="False"
+                       Margin="2">
+                <Button DockPanel.Dock="Right"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Width="25"
+                        Height="25"
+                        Cursor="Hand"
+                        Command="{ Binding Path=OpenAddTodoDialogCommand }">
+                    <Button.Content>
+                        <fa:ImageAwesome Icon="Pencil"
+                                         Width="15"
+                                         Foreground="DodgerBlue" />
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+        </Border>
 
         <TextBox Grid.Row="1"
                  Margin="2"
@@ -79,20 +93,34 @@
 
                         <StackPanel DockPanel.Dock="Right"
                                     Orientation="Horizontal">
-                            <Button 
-                                Content="Edit"
-                                Padding="2"
-                                MinWidth="50"
-                                Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
+                            <Button Background="Transparent"
+                                    BorderThickness="0"
+                                    Width="25"
+                                    Height="25"
+                                    Cursor="Hand"
+                                    Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
                                                    RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                CommandParameter="{ Binding }" />
-                            <Button 
-                                Content="Delete"
-                                Padding="2"
-                                MinWidth="50"
-                                Command="{ Binding Path=DataContext.OpenConfirmDialogCommand, 
+                                    CommandParameter="{ Binding }">
+                                <Button.Content>
+                                    <fa:ImageAwesome Icon="Edit"
+                                     Width="15"
+                                     Foreground="DodgerBlue" />
+                                </Button.Content>
+                            </Button>
+                            <Button Background="Transparent"
+                                    BorderThickness="0"
+                                    Width="25"
+                                    Height="25"
+                                    Cursor="Hand"
+                                    Command="{ Binding Path=DataContext.OpenConfirmDialogCommand, 
                                                    RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                CommandParameter="{ Binding }" />
+                                    CommandParameter="{ Binding }">
+                                <Button.Content>
+                                    <fa:ImageAwesome Icon="Trash"
+                                     Width="15"
+                                     Foreground="DodgerBlue" />
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
 
                         <TextBlock Text="{ Binding Path=Title }" 

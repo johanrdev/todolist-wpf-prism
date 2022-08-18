@@ -6,9 +6,9 @@
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
         Title="{ Binding Path=Title }" 
-        Height="450" 
-        Width="800"
-        MinWidth="500" 
+        Height="650" 
+        Width="500"
+        MinWidth="300" 
         MinHeight="300"
         WindowStartupLocation="CenterScreen">
     <Grid>
