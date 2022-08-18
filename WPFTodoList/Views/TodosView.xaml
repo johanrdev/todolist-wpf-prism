@@ -75,15 +75,16 @@
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
                             <TextBlock FontWeight="Bold"
-                                       FontSize="14">
+                                       FontSize="16"
+                                       Padding="4">
                                 <TextBlock.Style>
                                     <Style TargetType="{ x:Type TextBlock }">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{ Binding Path=Name }" Value="True">
-                                                <Setter Property="Text" Value="Completed" />
-                                            </DataTrigger>
                                             <DataTrigger Binding="{ Binding Path=Name }" Value="False">
-                                                <Setter Property="Text" Value="Pending" />
+                                                <Setter Property="Text" Value="Todos" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{ Binding Path=Name }" Value="True">
+                                                <Setter Property="Text" Value="Finished" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
