@@ -76,7 +76,9 @@ namespace WPFTodoList.ViewModels
         private void InitViewSource()
         {
             _viewSource = (ListCollectionView)CollectionViewSource.GetDefaultView(Todos);
+            _viewSource.SortDescriptions.Add(new SortDescription("IsCompleted", ListSortDirection.Ascending));
             _viewSource.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
+            _viewSource.GroupDescriptions.Add(new PropertyGroupDescription("IsCompleted"));
             _viewSource.IsLiveSorting = true;
             _viewSource.LiveSortingProperties.Add("Title");
             _viewSource.Filter = ViewSourceFilter;
@@ -89,7 +91,7 @@ namespace WPFTodoList.ViewModels
                 TodoItem todoItem = item as TodoItem;
 
                 return string.IsNullOrEmpty(SearchString) || string.IsNullOrWhiteSpace(SearchString) ?
-                    !todoItem.IsCompleted : !todoItem.IsCompleted && todoItem.Title.ToLower().Contains(SearchString.ToLower());
+                    true : todoItem.Title.ToLower().Contains(SearchString.ToLower());
             }
             else
             {

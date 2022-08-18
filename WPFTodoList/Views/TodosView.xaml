@@ -70,6 +70,18 @@
                     </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{ Binding Path=Name }"
+                                       FontWeight="Bold" 
+                                       FontSize="14">
+                            </TextBlock>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Margin="4">
