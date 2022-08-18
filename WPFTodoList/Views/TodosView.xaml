@@ -74,9 +74,20 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{ Binding Path=Name }"
-                                       FontWeight="Bold" 
+                            <TextBlock FontWeight="Bold"
                                        FontSize="14">
+                                <TextBlock.Style>
+                                    <Style TargetType="{ x:Type TextBlock }">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{ Binding Path=Name }" Value="True">
+                                                <Setter Property="Text" Value="Completed" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{ Binding Path=Name }" Value="False">
+                                                <Setter Property="Text" Value="Pending" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
                             </TextBlock>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
