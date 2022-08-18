@@ -36,6 +36,7 @@
         </Border>
 
         <TextBox Grid.Row="1"
+                 x:Name="FilterTextBox"
                  Margin="2"
                  Padding="4"
                  Text="{ Binding Path=SearchString, 
@@ -46,6 +47,27 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
+
+        <Label Grid.Row="1"
+               Padding="7, 4"
+               Margin="2"
+               Foreground="LightGray"
+               VerticalContentAlignment="Center"
+               Content="Enter search string..."
+               IsHitTestVisible="False">
+            <Label.Style>
+                <Style TargetType="{ x:Type Label }">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{ Binding ElementName=FilterTextBox, Path=IsFocused }" Value="True">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{ Binding ElementName=FilterTextBox, Path=IsFocused }" Value="False">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
 
         <ListView Grid.Row="2" 
                   Background="Transparent"
