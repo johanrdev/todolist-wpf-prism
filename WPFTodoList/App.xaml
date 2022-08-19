@@ -3,6 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="White" Color="#ffffff"></SolidColorBrush>
+        
+        <SolidColorBrush x:Key="LightBlueLighten5" Color="#e1f5fe"></SolidColorBrush>
+        <SolidColorBrush x:Key="LightBlueLighten1" Color="#29b6f6"></SolidColorBrush>
+        
+        <SolidColorBrush x:Key="LightBlueDarken2" Color="#0288d1"></SolidColorBrush>
+        <SolidColorBrush x:Key="LightBlueDarken3" Color="#0277bd"></SolidColorBrush>
+
+        <SolidColorBrush x:Key="BlueGreyLighten5" Color="#eceff1"></SolidColorBrush>
+        <SolidColorBrush x:Key="BlueGreyLighten4" Color="#cfd8dc"></SolidColorBrush>
+        <SolidColorBrush x:Key="BlueGreyDarken4" Color="#263238"></SolidColorBrush>
+
+        <SolidColorBrush x:Key="OrangeLighten3" Color="#ffcc80"></SolidColorBrush>
     </Application.Resources>
 </prism:PrismApplication>

@@ -38,8 +38,9 @@
                                          Icon="{ Binding Path=Icon }"
                                          Width="20"
                                          Height="20"
-                                         Foreground="DodgerBlue" />
+                                         Foreground="{ StaticResource LightBlueLighten5 }" />
                         <Label DockPanel.Dock="Left" 
+                               Foreground="{ StaticResource LightBlueLighten5 }"
                                Content="{ Binding Path=DisplayName }" />
                     </DockPanel>
                 </DataTemplate>

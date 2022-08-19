@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -45,7 +45,7 @@
                     <Button.Content>
                         <fa:ImageAwesome Icon="Pencil"
                                          Width="15"
-                                         Foreground="DodgerBlue" />
+                                         Foreground="{ StaticResource LightBlueDarken2 }" />
                     </Button.Content>
                 </Button>
             </DockPanel>
@@ -53,7 +53,7 @@
 
         <TextBox Grid.Row="1"
                  x:Name="FilterTextBox"
-                 Margin="2"
+                 Margin="0, 4"
                  Padding="8"
                  Text="{ Binding Path=SearchString, 
                                  UpdateSourceTrigger=PropertyChanged }">
@@ -93,7 +93,6 @@
 
         <ListView Grid.Row="2" 
                   Background="Transparent"
-                  BorderThickness="0"
                   AlternationCount="2"
                   SelectionMode="Single"
                   ItemsSource="{ Binding Path=ViewSource }"
@@ -109,6 +108,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="{ x:Type ListViewItem }">
                                     <Border Name="ListViewItemBorder"
+                                            Background="{ TemplateBinding Background }"
                                             Padding="{ TemplateBinding Padding }"
                                             Margin="{ TemplateBinding Margin }"
                                             Height="{ TemplateBinding Height }"
@@ -122,7 +122,7 @@
                                                  Value="True">
                                             <Setter TargetName="ListViewItemBorder"
                                                     Property="Background"
-                                                    Value="Orange" />
+                                                    Value="{ StaticResource OrangeLighten3 }" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -134,35 +134,66 @@
                             <Setter Property="Background" Value="Transparent" />
                         </Trigger>
                         <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                            <Setter Property="Background" Value="#F4F4F4" />
+                            <Setter Property="Background" Value="{ StaticResource BlueGreyLighten5 }" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.GroupStyle>
                 <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontWeight="Bold"
-                                           FontSize="16"
-                                           Padding="2, 4">
-                                    <TextBlock.Style>
-                                        <Style TargetType="{ x:Type TextBlock }">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{ Binding Path=Name }" Value="False">
-                                                    <Setter Property="Text" Value="Todos" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{ Binding Path=Name }" Value="True">
-                                                    <Setter Property="Text" Value="Finished" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{ x:Type GroupItem }">
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="Padding" Value="4" />
+                            <Setter Property="Background" Value="{ StaticResource BlueGreyLighten4 }" />
+                            <Setter Property="Foreground" Value="{ StaticResource BlueGreyDarken4 }" />
+                            <Setter Property="Cursor" Value="Hand" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{ x:Type GroupItem }">
+                                        <Border BorderBrush="{ TemplateBinding BorderBrush }" 
+                                                BorderThickness="{ TemplateBinding BorderThickness }" 
+                                                Margin="{ TemplateBinding Margin }">
+                                            <Expander IsExpanded="True" 
+                                                      Background="{ TemplateBinding Background }" 
+                                                      Foreground="{ TemplateBinding Foreground }" 
+                                                      Padding="{ TemplateBinding Padding }" 
+                                                      Cursor="{ TemplateBinding Cursor }">
+                                                <Expander.Header>
+                                                    <TextBlock FontWeight="Bold"
+                                                               FontSize="16"
+                                                               Padding="2, 4">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="{ x:Type TextBlock }">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{ Binding Path=Name }" 
+                                                                                 Value="False">
+                                                                        <Setter Property="Text" Value="Todos" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{ Binding Path=Name }" 
+                                                                                 Value="True">
+                                                                        <Setter Property="Text" Value="Finished" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </Expander.Header>
+
+                                                <Border Padding="4" 
+                                                        Background="{ StaticResource White }" 
+                                                        CornerRadius="4">
+                                                    <Grid>
+                                                        <ItemsPresenter />
+                                                    </Grid>
+                                                </Border>
+                                            </Expander>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
                 </GroupStyle>
             </ListView.GroupStyle>
             <ListView.ItemTemplate>
@@ -200,7 +231,7 @@
                                 <Button.Content>
                                     <fa:ImageAwesome Icon="Edit"
                                                      Width="15"
-                                                     Foreground="#333333" />
+                                                     Foreground="{ StaticResource BlueGreyDarken4 }" />
                                 </Button.Content>
                             </Button>
                             <Button Background="Transparent"
@@ -214,7 +245,7 @@
                                 <Button.Content>
                                     <fa:ImageAwesome Icon="Trash"
                                                      Width="15"
-                                                     Foreground="#333333" />
+                                                     Foreground="{ StaticResource BlueGreyDarken4 }" />
                                 </Button.Content>
                             </Button>
                         </StackPanel>

@@ -19,8 +19,8 @@
 
         <TextBlock Text="{ Binding Path=Title }" 
                    Padding="10" 
-                   Background="DodgerBlue" 
-                   Foreground="White" 
+                   Background="{ StaticResource LightBlueDarken2 }" 
+                   Foreground="{ StaticResource LightBlueLighten5 }" 
                    FontSize="18" />
 
         <Grid Grid.Row="1">
@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Background="LightGray">
+            <Grid Background="{ StaticResource LightBlueDarken3 }">
                 <ContentControl prism:RegionManager.RegionName="NavigationRegion" />
             </Grid>
 
