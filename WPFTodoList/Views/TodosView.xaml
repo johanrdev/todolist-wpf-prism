@@ -54,7 +54,7 @@
         <TextBox Grid.Row="1"
                  x:Name="FilterTextBox"
                  Margin="2"
-                 Padding="4"
+                 Padding="8"
                  Text="{ Binding Path=SearchString, 
                                  UpdateSourceTrigger=PropertyChanged }">
             <i:Interaction.Triggers>
@@ -65,7 +65,7 @@
         </TextBox>
 
         <Label Grid.Row="1"
-               Padding="7, 4"
+               Padding="11, 8"
                Margin="2"
                Foreground="LightGray"
                VerticalContentAlignment="Center"
@@ -73,13 +73,19 @@
                IsHitTestVisible="False">
             <Label.Style>
                 <Style TargetType="{ x:Type Label }">
+                    <Style.Setters>
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </Style.Setters>
                     <Style.Triggers>
-                        <DataTrigger Binding="{ Binding ElementName=FilterTextBox, Path=IsFocused }" Value="True">
+                        <DataTrigger Binding="{ Binding Path=Text, ElementName=FilterTextBox }" Value="">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <!--<DataTrigger Binding="{ Binding ElementName=FilterTextBox, Path=IsFocused }" Value="True">
                             <Setter Property="Visibility" Value="Hidden" />
                         </DataTrigger>
                         <DataTrigger Binding="{ Binding ElementName=FilterTextBox, Path=IsFocused }" Value="False">
                             <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
+                        </DataTrigger>-->
                     </Style.Triggers>
                 </Style>
             </Label.Style>
@@ -98,6 +104,30 @@
                     <Style.Setters>
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="Cursor" Value="Hand" />
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{ x:Type ListViewItem }">
+                                    <Border Name="ListViewItemBorder"
+                                            Padding="{ TemplateBinding Padding }"
+                                            Margin="{ TemplateBinding Margin }"
+                                            Height="{ TemplateBinding Height }"
+                                            SnapsToDevicePixels="True"
+                                            CornerRadius="4">
+                                        <ContentPresenter />
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected"
+                                                 Value="True">
+                                            <Setter TargetName="ListViewItemBorder"
+                                                    Property="Background"
+                                                    Value="Orange" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </Style.Setters>
                     <Style.Triggers>
                         <Trigger Property="ItemsControl.AlternationIndex" Value="0">
@@ -137,8 +167,7 @@
             </ListView.GroupStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <DockPanel Margin="4"
-                               Height="30">
+                    <DockPanel>
                         <CheckBox DockPanel.Dock="Left" 
                                   IsChecked="{ Binding Path=IsCompleted }"
                                   Margin="0, 0, 4, 0"
@@ -170,8 +199,8 @@
                                     CommandParameter="{ Binding }">
                                 <Button.Content>
                                     <fa:ImageAwesome Icon="Edit"
-                                     Width="15"
-                                     Foreground="DodgerBlue" />
+                                                     Width="15"
+                                                     Foreground="#333333" />
                                 </Button.Content>
                             </Button>
                             <Button Background="Transparent"
@@ -184,8 +213,8 @@
                                     CommandParameter="{ Binding }">
                                 <Button.Content>
                                     <fa:ImageAwesome Icon="Trash"
-                                     Width="15"
-                                     Foreground="DodgerBlue" />
+                                                     Width="15"
+                                                     Foreground="#333333" />
                                 </Button.Content>
                             </Button>
                         </StackPanel>
