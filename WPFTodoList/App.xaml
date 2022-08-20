@@ -152,7 +152,19 @@
                     </i:Interaction.Triggers>
                 </CheckBox>
 
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Visibility="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}, Converter={ StaticResource BooleanToVisibilityConverter }}">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <StackPanel.Style>
+                        <Style TargetType="{ x:Type StackPanel }">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
                     <Menu>
                         <MenuItem FontWeight="Bold" FontSize="10" Foreground="{ StaticResource BlueGreyDarken4 }">
                             <MenuItem.Header>
@@ -171,6 +183,21 @@
                         </MenuItem>
                     </Menu>
                 </StackPanel>
+
+                <TextBlock DockPanel.Dock="Right" Text="{ Binding Path=Created, StringFormat=d MMM }" FontSize="10" Foreground="Gray" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="{ x:Type TextBlock }">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
                 <TextBlock Text="{ Binding Path=Title }" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" />
             </DockPanel>
