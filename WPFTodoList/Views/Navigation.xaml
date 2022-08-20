@@ -17,8 +17,7 @@
                   SelectedItem="{ Binding Path=SelectedNavigationItem }">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{ Binding Path=NavigateCommand }" 
-                                           CommandParameter="{ Binding Path=SelectedItem, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }}}" />
+                    <i:InvokeCommandAction Command="{ Binding Path=NavigateCommand }" CommandParameter="{ Binding Path=SelectedItem, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }}}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListView>

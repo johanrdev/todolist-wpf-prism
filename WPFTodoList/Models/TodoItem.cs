@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using System;
 
 namespace WPFTodoList.Models
 {
@@ -7,6 +8,7 @@ namespace WPFTodoList.Models
         private int _id;
         private string _title;
         private bool _isCompleted;
+        private DateTime _created;
 
         public int Id
         {
@@ -24,6 +26,17 @@ namespace WPFTodoList.Models
         {
             get => _isCompleted;
             set => SetProperty(ref _isCompleted, value);
+        }
+
+        public DateTime Created
+        {
+            get => _created;
+            private set => SetProperty(ref _created, value);
+        }
+
+        public TodoItem()
+        {
+            Created = DateTime.Now;
         }
     }
 }
