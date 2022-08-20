@@ -11,30 +11,16 @@
         <ListView Background="Transparent"
                   BorderThickness="0"
                   Padding="4, 4, 0, 4"
+                  ItemTemplate="{ StaticResource NavigationListViewDataTemplate }"
                   ItemContainerStyle="{ StaticResource NavigationListViewItemContainerStyle }"
                   ItemsSource="{ Binding Path=NavigationItems }"
                   SelectedItem="{ Binding Path=SelectedNavigationItem }">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{ Binding Path=NavigateCommand }"
-                                           CommandParameter="{ Binding Path=SelectedItem, 
-                                                                       RelativeSource={ RelativeSource AncestorType={ x:Type ListView }}}" />
+                    <i:InvokeCommandAction Command="{ Binding Path=NavigateCommand }" 
+                                           CommandParameter="{ Binding Path=SelectedItem, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }}}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel LastChildFill="True">
-                        <fa:ImageAwesome DockPanel.Dock="Left"
-                                         Icon="{ Binding Path=Icon }"
-                                         Width="20"
-                                         Height="20"
-                                         Foreground="{ StaticResource LightBlueLighten5 }" />
-                        <Label DockPanel.Dock="Left" 
-                               Foreground="{ StaticResource LightBlueLighten5 }"
-                               Content="{ Binding Path=DisplayName }" />
-                    </DockPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </UserControl>
