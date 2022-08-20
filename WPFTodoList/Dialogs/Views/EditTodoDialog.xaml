@@ -7,7 +7,7 @@
              d:DesignHeight="450" 
              d:DesignWidth="800"
              Width="300"
-             Height="180">
+             Height="150">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -21,7 +21,7 @@
         </StackPanel>
 
         <DockPanel Grid.Row="2" LastChildFill="False">
-            <Button DockPanel.Dock="Right" Content="Update" Padding="4" MinWidth="70" Command="{ Binding Path=UpdateCommand }" />
+            <Button DockPanel.Dock="Right" Content="Update" Padding="8" MinWidth="70" Command="{ Binding Path=UpdateCommand }" />
         </DockPanel>
     </Grid>
 </UserControl>

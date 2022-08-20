@@ -14,6 +14,7 @@
         
         <SolidColorBrush x:Key="LightBlueDarken2" Color="#0288d1"></SolidColorBrush>
         <SolidColorBrush x:Key="LightBlueDarken3" Color="#0277bd"></SolidColorBrush>
+        <SolidColorBrush x:Key="LightBlueDarken4" Color="#01579b"></SolidColorBrush>
 
         <SolidColorBrush x:Key="BlueGreyLighten5" Color="#eceff1"></SolidColorBrush>
         <SolidColorBrush x:Key="BlueGreyLighten4" Color="#cfd8dc"></SolidColorBrush>
@@ -36,18 +37,59 @@
             <Style.Setters>
                 <Setter Property="Background" Value="{ StaticResource LightBlueDarken2 }" />
                 <Setter Property="Foreground" Value="{ StaticResource LightBlueLighten5 }" />
-                <Setter Property="Padding" Value="2" />
                 <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{ x:Type Button }">
                             <Border TextBlock.Foreground="{ TemplateBinding Foreground }" Background="{ TemplateBinding Background }" Padding="{ TemplateBinding Padding }" x:Name="Border" CornerRadius="2" BorderThickness="1">
-                                <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                <Grid>
+
+                                    <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                </Grid>
+
+                                <!--<VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="ButtonBackground" Storyboard.TargetProperty="Color" To="Red" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="MouseOut">
+                                            <Story
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="ButtonBackground" Storyboard.TargetProperty="Color" To="Orange" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>-->
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style.Setters>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Button.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="#01579b" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Button.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="#0288d1" Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
         
         <!-- Menu -->

@@ -11,9 +11,9 @@ namespace WPFTodoList.Dialogs.ViewModels
         private DelegateCommand _confirmCommand;
 
         public DelegateCommand ConfirmCommand =>
-            _confirmCommand ?? new DelegateCommand(ExecuteConfirmCommand);
+            _confirmCommand ?? (_confirmCommand = new DelegateCommand(ExecuteConfirmCommand));
 
-        public string Title => "Confirm";
+        public string Title { get; set; } = "Confirm";
 
         public string Message
         {

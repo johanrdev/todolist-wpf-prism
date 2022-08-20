@@ -11,7 +11,7 @@ namespace WPFTodoList.Dialogs.ViewModels
         private TodoItem _newTodo;
         private DelegateCommand _addCommand;
 
-        public string Title => "Add Todo";
+        public string Title { get; set; } = "Add Todo";
 
         public TodoItem NewTodo
         {
@@ -20,7 +20,7 @@ namespace WPFTodoList.Dialogs.ViewModels
         }
 
         public DelegateCommand AddCommand =>
-            _addCommand ?? new DelegateCommand(ExecuteAddCommand);
+            _addCommand ?? (_addCommand = new DelegateCommand(ExecuteAddCommand));
 
         public event Action<IDialogResult> RequestClose;
 

@@ -35,14 +35,13 @@
                     </Button.Content>
                 </Button>-->
                 <Button DockPanel.Dock="Right"
-                        Background="Transparent"
                         BorderThickness="0"
                         Width="25"
                         Height="25"
                         Cursor="Hand"
                         Command="{ Binding Path=OpenAddTodoDialogCommand }">
                     <Button.Content>
-                        <fa:ImageAwesome Icon="Plus" Width="15" Foreground="{ StaticResource LightBlueDarken2 }" />
+                        <fa:ImageAwesome Icon="Plus" Width="15" Foreground="{ StaticResource LightBlueLighten5 }" />
                     </Button.Content>
                 </Button>
             </DockPanel>

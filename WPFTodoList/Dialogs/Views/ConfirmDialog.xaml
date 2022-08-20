@@ -17,7 +17,7 @@
         <TextBlock Text="{ Binding Path=Message }" FontSize="14" TextWrapping="WrapWithOverflow" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
         <DockPanel Grid.Row="1" LastChildFill="False">
-            <Button DockPanel.Dock="Right" Content="Confirm" Padding="4" MinWidth="70" Command="{ Binding Path=ConfirmCommand }" />
+            <Button DockPanel.Dock="Right" Content="Confirm" Padding="8" MinWidth="70" Command="{ Binding Path=ConfirmCommand }" />
         </DockPanel>
     </Grid>
 </UserControl>
