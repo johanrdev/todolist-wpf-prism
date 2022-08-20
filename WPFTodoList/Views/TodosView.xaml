@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
+    
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -18,10 +19,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border BorderThickness="0, 0, 0, 1"
-                BorderBrush="#FFCCCCCC">
-            <DockPanel LastChildFill="False"
-                       Margin="2">
+        <Border BorderThickness="0, 0, 0, 1" BorderBrush="#FFCCCCCC">
+            <DockPanel LastChildFill="False" Margin="2">
                 <!--<Button DockPanel.Dock="Right"
                         Background="Transparent"
                         BorderThickness="0"
@@ -43,20 +42,13 @@
                         Cursor="Hand"
                         Command="{ Binding Path=OpenAddTodoDialogCommand }">
                     <Button.Content>
-                        <fa:ImageAwesome Icon="Plus"
-                                         Width="15"
-                                         Foreground="{ StaticResource LightBlueDarken2 }" />
+                        <fa:ImageAwesome Icon="Plus" Width="15" Foreground="{ StaticResource LightBlueDarken2 }" />
                     </Button.Content>
                 </Button>
             </DockPanel>
         </Border>
 
-        <TextBox Grid.Row="1"
-                 x:Name="FilterTextBox"
-                 Margin="0, 4"
-                 Padding="8"
-                 Text="{ Binding Path=SearchString, 
-                                 UpdateSourceTrigger=PropertyChanged }">
+        <TextBox Grid.Row="1" x:Name="FilterTextBox" Text="{ Binding Path=SearchString, UpdateSourceTrigger=PropertyChanged }">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="KeyUp">
                     <i:InvokeCommandAction Command="{ Binding FilterCommand }" />
@@ -95,196 +87,14 @@
                   Background="Transparent"
                   AlternationCount="2"
                   SelectionMode="Single"
+                  ItemContainerStyle="{ StaticResource TodosListViewItemContainerStyle }"
+                  ItemTemplate="{ StaticResource TodosListViewDataTemplate }"
                   ItemsSource="{ Binding Path=ViewSource }"
                   SelectedItem="{ Binding Path=SelectedTodoItem }"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{ x:Type ListViewItem }">
-                    <Style.Setters>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Cursor" Value="Hand" />
-                        <Setter Property="Height" Value="30" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{ x:Type ListViewItem }">
-                                    <Border Name="ListViewItemBorder"
-                                            Background="{ TemplateBinding Background }"
-                                            Padding="{ TemplateBinding Padding }"
-                                            Margin="{ TemplateBinding Margin }"
-                                            Height="{ TemplateBinding Height }"
-                                            SnapsToDevicePixels="True"
-                                            CornerRadius="4">
-                                        <ContentPresenter />
-                                    </Border>
-
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected"
-                                                 Value="True">
-                                            <Setter TargetName="ListViewItemBorder"
-                                                    Property="Background"
-                                                    Value="{ StaticResource OrangeLighten3 }" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style.Setters>
-                    <Style.Triggers>
-                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                            <Setter Property="Background" Value="{ StaticResource BlueGreyLighten5 }" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListView.ItemContainerStyle>
             <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{ x:Type GroupItem }">
-                            <Setter Property="Margin" Value="0" />
-                            <Setter Property="Padding" Value="4" />
-                            <Setter Property="Background" Value="{ StaticResource BlueGreyLighten4 }" />
-                            <Setter Property="Foreground" Value="{ StaticResource BlueGreyDarken4 }" />
-                            <Setter Property="Cursor" Value="Hand" />
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{ x:Type GroupItem }">
-                                        <Border BorderBrush="{ TemplateBinding BorderBrush }" 
-                                                BorderThickness="{ TemplateBinding BorderThickness }" 
-                                                Margin="{ TemplateBinding Margin }">
-                                            <Expander IsExpanded="True" 
-                                                      Background="{ TemplateBinding Background }" 
-                                                      Foreground="{ TemplateBinding Foreground }" 
-                                                      Padding="{ TemplateBinding Padding }" 
-                                                      Cursor="{ TemplateBinding Cursor }">
-                                                <Expander.Header>
-                                                    <TextBlock FontWeight="Bold"
-                                                               FontSize="16"
-                                                               Padding="2, 4">
-                                                        <TextBlock.Style>
-                                                            <Style TargetType="{ x:Type TextBlock }">
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{ Binding Path=Name }" 
-                                                                                 Value="False">
-                                                                        <Setter Property="Text" Value="Todos" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{ Binding Path=Name }" 
-                                                                                 Value="True">
-                                                                        <Setter Property="Text" Value="Finished" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </TextBlock.Style>
-                                                    </TextBlock>
-                                                </Expander.Header>
-
-                                                <Border Padding="4" 
-                                                        Background="{ StaticResource White }" 
-                                                        CornerRadius="4">
-                                                    <Grid>
-                                                        <ItemsPresenter />
-                                                    </Grid>
-                                                </Border>
-                                            </Expander>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                </GroupStyle>
+                <GroupStyle ContainerStyle="{ StaticResource TodosListViewContainerStyle }" />
             </ListView.GroupStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel>
-                        <CheckBox DockPanel.Dock="Left" 
-                                  IsChecked="{ Binding Path=IsCompleted }"
-                                  Margin="0, 0, 4, 0"
-                                  VerticalAlignment="Center">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Checked">
-                                    <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, 
-                                                                              RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                                           CommandParameter="{ Binding }" />
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="Unchecked">
-                                    <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, 
-                                                                              RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                                           CommandParameter="{ Binding }" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </CheckBox>
-
-                        <StackPanel DockPanel.Dock="Right"
-                                    Orientation="Horizontal"
-                                    Visibility="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}, Converter={ StaticResource BooleanToVisibilityConverter }}">
-
-                            <Menu Background="Transparent"
-                                  VerticalAlignment="Center">
-                                <MenuItem FontWeight="Bold"
-                                          FontSize="10"
-                                          Foreground="{ StaticResource BlueGreyDarken4 }">
-                                    <MenuItem.Header>
-                                        <fa:ImageAwesome Icon="EllipsisV" Height="15" />
-                                    </MenuItem.Header>
-                                    <MenuItem Header="Edit"
-                                              FontSize="12"
-                                              Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
-                                                                 RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                              CommandParameter="{ Binding }">
-                                        <MenuItem.Icon>
-                                            <fa:ImageAwesome Icon="Pencil" Width="15" Height="15" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <MenuItem Header="Delete"
-                                              FontSize="12"
-                                              Command="{ Binding Path=DataContext.OpenConfirmDialogCommand, 
-                                                                 RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                              CommandParameter="{ Binding }">
-                                        <MenuItem.Icon>
-                                            <fa:ImageAwesome Icon="Trash" Width="15" Height="15" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </MenuItem>
-                            </Menu>
-                            <!--<Button Background="Transparent"
-                                    BorderThickness="0"
-                                    Width="25"
-                                    Cursor="Hand"
-                                    Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
-                                                   RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                    CommandParameter="{ Binding }">
-                                <Button.Content>
-                                    <fa:ImageAwesome Icon="EllipsisV"
-                                                     Width="5"
-                                                     Height="15"
-                                                     Foreground="{ StaticResource BlueGreyDarken4 }" />
-                                </Button.Content>
-                            </Button>-->
-                            <!--<Button Background="Transparent"
-                                    BorderThickness="0"
-                                    Width="25"
-                                    Height="25"
-                                    Cursor="Hand"
-                                    Command="{ Binding Path=DataContext.OpenConfirmDialogCommand, 
-                                                   RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
-                                    CommandParameter="{ Binding }">
-                                <Button.Content>
-                                    <fa:ImageAwesome Icon="Trash"
-                                                     Width="15"
-                                                     Foreground="{ StaticResource BlueGreyDarken4 }" />
-                                </Button.Content>
-                            </Button>-->
-                        </StackPanel>
-
-                        <TextBlock Text="{ Binding Path=Title }" 
-                                   TextWrapping="WrapWithOverflow"
-                                   VerticalAlignment="Center" />
-                    </DockPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </UserControl>

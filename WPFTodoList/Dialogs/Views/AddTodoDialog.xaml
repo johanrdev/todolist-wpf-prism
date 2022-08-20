@@ -7,7 +7,7 @@
              d:DesignHeight="450" 
              d:DesignWidth="800"
              Width="300"
-             Height="200">
+             Height="180">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,18 +17,11 @@
 
         <StackPanel Orientation="Vertical">
             <Label Content="Todo:" />
-            <TextBox Margin="0, 2" 
-                     Padding="4"
-                     Text="{ Binding NewTodo.Title }" />
+            <TextBox Text="{ Binding NewTodo.Title }" />
         </StackPanel>
 
-        <DockPanel Grid.Row="2"
-                   LastChildFill="False">
-            <Button DockPanel.Dock="Right"
-                    Content="Add"
-                    Padding="4"
-                    MinWidth="70"
-                    Command="{ Binding Path=AddCommand }" />
+        <DockPanel Grid.Row="2" LastChildFill="False">
+            <Button DockPanel.Dock="Right" Content="Add" Padding="4" MinWidth="70" Command="{ Binding Path=AddCommand }" />
         </DockPanel>
     </Grid>
 </UserControl>

@@ -2,8 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:fa="http://schemas.fontawesome.io/icons/">
     <Application.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        
         <SolidColorBrush x:Key="White" Color="#ffffff"></SolidColorBrush>
         
         <SolidColorBrush x:Key="LightBlueLighten5" Color="#e1f5fe"></SolidColorBrush>
@@ -15,21 +18,57 @@
         <SolidColorBrush x:Key="BlueGreyLighten5" Color="#eceff1"></SolidColorBrush>
         <SolidColorBrush x:Key="BlueGreyLighten4" Color="#cfd8dc"></SolidColorBrush>
         <SolidColorBrush x:Key="BlueGreyDarken4" Color="#263238"></SolidColorBrush>
-
+        
         <SolidColorBrush x:Key="OrangeLighten3" Color="#ffcc80"></SolidColorBrush>
+        
+        <SolidColorBrush x:Key="DeepOrangeLighten1" Color="#ff7043"></SolidColorBrush>
 
+        <!-- TextBox -->
+        <Style TargetType="{ x:Type TextBox }">
+            <Style.Setters>
+                <Setter Property="Padding" Value="8" />
+                <Setter Property="Margin" Value="0, 4" />
+            </Style.Setters>
+        </Style>
+        
+        <!-- Button -->
+        <Style TargetType="{ x:Type Button }">
+            <Style.Setters>
+                <Setter Property="Background" Value="{ StaticResource LightBlueDarken2 }" />
+                <Setter Property="Foreground" Value="{ StaticResource LightBlueLighten5 }" />
+                <Setter Property="Padding" Value="2" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{ x:Type Button }">
+                            <Border TextBlock.Foreground="{ TemplateBinding Foreground }" Background="{ TemplateBinding Background }" Padding="{ TemplateBinding Padding }" x:Name="Border" CornerRadius="2" BorderThickness="1">
+                                <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+
+        <!-- Navigation ListView -->
         <DataTemplate x:Key="NavigationListViewDataTemplate">
             <DockPanel LastChildFill="True">
-                <fa:ImageAwesome DockPanel.Dock="Left"
-                                 Icon="{ Binding Path=Icon }"
-                                 Width="20"
-                                 Height="20"
-                                 Foreground="{ StaticResource LightBlueLighten5 }" />
-                <Label DockPanel.Dock="Left" 
-                       Foreground="{ StaticResource LightBlueLighten5 }"
-                       Content="{ Binding Path=DisplayName }" />
+                <fa:ImageAwesome DockPanel.Dock="Left" Icon="{ Binding Path=Icon }" Width="20" Height="20" Foreground="{ StaticResource LightBlueLighten5 }" />
+                <Label DockPanel.Dock="Left"  Foreground="{ StaticResource LightBlueLighten5 }" Content="{ Binding Path=DisplayName }" />
             </DockPanel>
         </DataTemplate>
+
+        <ControlTemplate TargetType="{ x:Type ListViewItem }" x:Key="NavigationListViewItemTemplate">
+            <Border x:Name="ListViewItemBorder" Background="{ TemplateBinding Background }" Padding="{ TemplateBinding Padding }" Margin="{ TemplateBinding Margin }" Height="{ TemplateBinding Height }" SnapsToDevicePixels="True" CornerRadius="2, 0, 0, 2">
+                <ContentPresenter />
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{ StaticResource LightBlueLighten1 }" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
         <Style TargetType="{ x:Type ListViewItem }" x:Key="NavigationListViewItemContainerStyle">
             <Style.Setters>
@@ -37,28 +76,113 @@
                 <Setter Property="Padding" Value="4" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Cursor" Value="Hand" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{ x:Type ListViewItem }">
-                            <Border x:Name="ListViewItemBorder"
-                                    Background="{ TemplateBinding Background }"
-                                    Padding="{ TemplateBinding Padding }"
-                                    Margin="{ TemplateBinding Margin }"
-                                    Height="{ TemplateBinding Height }"
-                                    SnapsToDevicePixels="True"
-                                    CornerRadius="2, 0, 0, 2">
-                                <ContentPresenter />
-                            </Border>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{ StaticResource LightBlueLighten1 }" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Template" Value="{ StaticResource NavigationListViewItemTemplate }" />
             </Style.Setters>
+        </Style>
+        
+        <!-- Todos ListView -->
+        <DataTemplate x:Key="TodosListViewDataTemplate">
+            <DockPanel>
+                <CheckBox DockPanel.Dock="Left" IsChecked="{ Binding Path=IsCompleted }" Margin="0, 0, 4, 0" VerticalAlignment="Center">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Checked">
+                            <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }" CommandParameter="{ Binding }" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Unchecked">
+                            <i:InvokeCommandAction Command="{ Binding Path=DataContext.ToggleCommand, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }" CommandParameter="{ Binding }" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </CheckBox>
+
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Visibility="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}, Converter={ StaticResource BooleanToVisibilityConverter }}">
+                    <Menu Background="Transparent" VerticalAlignment="Center">
+                        <MenuItem FontWeight="Bold" FontSize="10" Foreground="{ StaticResource BlueGreyDarken4 }">
+                            <MenuItem.Header>
+                                <fa:ImageAwesome Icon="EllipsisV" Height="15" Foreground="{ StaticResource DeepOrangeLighten1 }" />
+                            </MenuItem.Header>
+                            <MenuItem Header="Edit" FontSize="12" Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }" CommandParameter="{ Binding }">
+                                <MenuItem.Icon>
+                                    <fa:ImageAwesome Icon="Pencil" Width="15" Height="15" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Delete" FontSize="12" Command="{ Binding Path=DataContext.OpenConfirmDialogCommand, RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }" CommandParameter="{ Binding }">
+                                <MenuItem.Icon>
+                                    <fa:ImageAwesome Icon="Trash" Width="15" Height="15" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                </StackPanel>
+
+                <TextBlock Text="{ Binding Path=Title }" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" />
+            </DockPanel>
+        </DataTemplate>
+
+        <ControlTemplate TargetType="{ x:Type GroupItem }" x:Key="TodosListViewGroupItemTemplate">
+            <Border BorderBrush="{ TemplateBinding BorderBrush }" BorderThickness="{ TemplateBinding BorderThickness }" Margin="{ TemplateBinding Margin }">
+                <Expander IsExpanded="True" Background="{ TemplateBinding Background }" Foreground="{ TemplateBinding Foreground }" Padding="{ TemplateBinding Padding }" Cursor="{ TemplateBinding Cursor }">
+                    <Expander.Header>
+                        <TextBlock FontWeight="Bold" FontSize="16" Padding="2, 4">
+                            <TextBlock.Style>
+                                <Style TargetType="{ x:Type TextBlock }">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{ Binding Path=Name }" Value="False">
+                                            <Setter Property="Text" Value="Todos" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{ Binding Path=Name }" Value="True">
+                                            <Setter Property="Text" Value="Finished" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Expander.Header>
+
+                    <Border Padding="4" Background="{ StaticResource White }" CornerRadius="4">
+                        <Grid>
+                            <ItemsPresenter />
+                        </Grid>
+                    </Border>
+                </Expander>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate TargetType="{ x:Type ListViewItem }" x:Key="TodosListViewItemTemplate">
+            <Border Name="ListViewItemBorder" Background="{ TemplateBinding Background }" Padding="{ TemplateBinding Padding }" Margin="{ TemplateBinding Margin }" Height="{ TemplateBinding Height }" SnapsToDevicePixels="True" CornerRadius="4">
+                <ContentPresenter />
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter TargetName="ListViewItemBorder" Property="Background" Value="{ StaticResource OrangeLighten3 }" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style TargetType="{ x:Type ListViewItem }" x:Key="TodosListViewItemContainerStyle">
+            <Style.Setters>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Template" Value="{ StaticResource TodosListViewItemTemplate }" />
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="{ StaticResource BlueGreyLighten5 }" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{ x:Type GroupItem }" x:Key="TodosListViewContainerStyle">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Background" Value="{ StaticResource BlueGreyLighten4 }" />
+            <Setter Property="Foreground" Value="{ StaticResource BlueGreyDarken4 }" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template" Value="{ StaticResource TodosListViewGroupItemTemplate }" />
         </Style>
     </Application.Resources>
 </prism:PrismApplication>
