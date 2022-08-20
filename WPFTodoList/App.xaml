@@ -49,6 +49,22 @@
                 </Setter>
             </Style.Setters>
         </Style>
+        
+        <!-- Menu -->
+        <Style TargetType="{ x:Type Menu }">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{ x:Type Menu }">
+                        <Border Background="{ TemplateBinding Background }" BorderThickness="1">
+                            <StackPanel ClipToBounds="True" Orientation="Horizontal" IsItemsHost="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <!-- Navigation ListView -->
         <DataTemplate x:Key="NavigationListViewDataTemplate">
@@ -95,7 +111,7 @@
                 </CheckBox>
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Visibility="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}, Converter={ StaticResource BooleanToVisibilityConverter }}">
-                    <Menu Background="Transparent" VerticalAlignment="Center">
+                    <Menu>
                         <MenuItem FontWeight="Bold" FontSize="10" Foreground="{ StaticResource BlueGreyDarken4 }">
                             <MenuItem.Header>
                                 <fa:ImageAwesome Icon="EllipsisV" Height="15" Foreground="{ StaticResource DeepOrangeLighten1 }" />
