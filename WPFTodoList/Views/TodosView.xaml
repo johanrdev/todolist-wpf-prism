@@ -43,7 +43,7 @@
                         Cursor="Hand"
                         Command="{ Binding Path=OpenAddTodoDialogCommand }">
                     <Button.Content>
-                        <fa:ImageAwesome Icon="Pencil"
+                        <fa:ImageAwesome Icon="Plus"
                                          Width="15"
                                          Foreground="{ StaticResource LightBlueDarken2 }" />
                     </Button.Content>
@@ -220,21 +220,50 @@
                         <StackPanel DockPanel.Dock="Right"
                                     Orientation="Horizontal"
                                     Visibility="{ Binding Path=IsSelected, RelativeSource={ RelativeSource AncestorType={ x:Type ListViewItem }}, Converter={ StaticResource BooleanToVisibilityConverter }}">
-                            <Button Background="Transparent"
+
+                            <Menu Background="Transparent"
+                                  VerticalAlignment="Center">
+                                <MenuItem FontWeight="Bold"
+                                          FontSize="10"
+                                          Foreground="{ StaticResource BlueGreyDarken4 }">
+                                    <MenuItem.Header>
+                                        <fa:ImageAwesome Icon="EllipsisV" Height="15" />
+                                    </MenuItem.Header>
+                                    <MenuItem Header="Edit"
+                                              FontSize="12"
+                                              Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
+                                                                 RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
+                                              CommandParameter="{ Binding }">
+                                        <MenuItem.Icon>
+                                            <fa:ImageAwesome Icon="Pencil" Width="15" Height="15" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Delete"
+                                              FontSize="12"
+                                              Command="{ Binding Path=DataContext.OpenConfirmDialogCommand, 
+                                                                 RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
+                                              CommandParameter="{ Binding }">
+                                        <MenuItem.Icon>
+                                            <fa:ImageAwesome Icon="Trash" Width="15" Height="15" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </MenuItem>
+                            </Menu>
+                            <!--<Button Background="Transparent"
                                     BorderThickness="0"
                                     Width="25"
-                                    Height="25"
                                     Cursor="Hand"
                                     Command="{ Binding Path=DataContext.OpenEditTodoDialogCommand, 
                                                    RelativeSource={ RelativeSource AncestorType={ x:Type ListView }} }"
                                     CommandParameter="{ Binding }">
                                 <Button.Content>
-                                    <fa:ImageAwesome Icon="Edit"
-                                                     Width="15"
+                                    <fa:ImageAwesome Icon="EllipsisV"
+                                                     Width="5"
+                                                     Height="15"
                                                      Foreground="{ StaticResource BlueGreyDarken4 }" />
                                 </Button.Content>
-                            </Button>
-                            <Button Background="Transparent"
+                            </Button>-->
+                            <!--<Button Background="Transparent"
                                     BorderThickness="0"
                                     Width="25"
                                     Height="25"
@@ -247,7 +276,7 @@
                                                      Width="15"
                                                      Foreground="{ StaticResource BlueGreyDarken4 }" />
                                 </Button.Content>
-                            </Button>
+                            </Button>-->
                         </StackPanel>
 
                         <TextBlock Text="{ Binding Path=Title }" 

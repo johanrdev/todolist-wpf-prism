@@ -9,7 +9,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <ListView Background="Transparent"
-                  BorderThickness="0, 0, 1, 0"
+                  BorderThickness="0"
+                  Padding="4, 4, 0, 4"
+                  ItemContainerStyle="{ StaticResource NavigationListViewItemContainerStyle }"
                   ItemsSource="{ Binding Path=NavigationItems }"
                   SelectedItem="{ Binding Path=SelectedNavigationItem }">
             <i:Interaction.Triggers>
@@ -19,18 +21,6 @@
                                                                        RelativeSource={ RelativeSource AncestorType={ x:Type ListView }}}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{ x:Type ListViewItem }">
-                    <Style.Setters>
-                        <Setter Property="HorizontalContentAlignment"
-                                Value="Stretch" />
-                        <Setter Property="Padding" 
-                                Value="2" />
-                        <Setter Property="Cursor"
-                                Value="Hand" />
-                    </Style.Setters>
-                </Style>
-            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel LastChildFill="True">

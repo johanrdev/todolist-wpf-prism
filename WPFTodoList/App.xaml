@@ -16,5 +16,39 @@
         <SolidColorBrush x:Key="BlueGreyDarken4" Color="#263238"></SolidColorBrush>
 
         <SolidColorBrush x:Key="OrangeLighten3" Color="#ffcc80"></SolidColorBrush>
+
+        <Style TargetType="{ x:Type ListViewItem }" x:Key="NavigationListViewItemContainerStyle">
+            <Style.Setters>
+                <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                <Setter Property="Padding" 
+                                Value="4" />
+                <Setter Property="Margin"
+                                Value="0" />
+                <Setter Property="Cursor"
+                                Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{ x:Type ListViewItem }">
+                            <Border x:Name="ListViewItemBorder"
+                                Background="{ TemplateBinding Background }"
+                                Padding="{ TemplateBinding Padding }"
+                                Margin="{ TemplateBinding Margin }"
+                                Height="{ TemplateBinding Height }"
+                                SnapsToDevicePixels="True"
+                                CornerRadius="2, 0, 0, 2">
+                                <ContentPresenter />
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{ StaticResource LightBlueLighten1 }" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
     </Application.Resources>
 </prism:PrismApplication>
